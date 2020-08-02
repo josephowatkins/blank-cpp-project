@@ -1,13 +1,13 @@
 EXEC := main
 
-CXX := g++ #main compiler
+CXX := g++
 CXXFLAGS := -Wall -g
 
 INCLUDE_DIR := include
 BUILD_DIR := build
 SRC_DIR := src
 
-CXXFLAGS += -I$(SRC_DIR)
+CXXFLAGS += -I$(INCLUDE_DIR)
 
 SOURCE_FILES = main.cpp
 
@@ -16,11 +16,11 @@ OBJECTS = $(patsubst %,$(BUILD_DIR)/%,$(SOURCE_FILES:.cpp=.o))
 all: $(BUILD_DIR)/$(EXEC)
 
 $(BUILD_DIR)/$(EXEC): $(OBJECTS)
-	$(CXX)-o $(BUILD_DIR)/$(EXEC) $(OBJECTS);
+	$(CXX) $(CXXFLAGS) -o $(BUILD_DIR)/$(EXEC) $(OBJECTS);
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(BUILD_DIR)
-	$(CXX)-c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean:
 	$(RM) -r $(BUILD_DIR)
